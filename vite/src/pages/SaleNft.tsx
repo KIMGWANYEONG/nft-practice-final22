@@ -2,7 +2,6 @@ import { Flex, Grid, Text } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
-import axios from "axios";
 import SaleNftCard from "../components/SaleNftCard";
 
 const SaleNft: FC = () => {
@@ -24,24 +23,6 @@ const SaleNft: FC = () => {
       console.error(error);
     }
   };
-
-  // const getNftMetadata = async () => {
-  //   try {
-  //     const temp = await Promise.all(
-  //       tokenIds.map(async (v) => {
-  //         const tokenURI = await mintContract?.tokenURI(v);
-
-  //         const response = await axios.get<NftMetadata>(tokenURI);
-
-  //         return response.data;
-  //       })
-  //     );
-
-  //     setNftMetadataArray(temp);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   useEffect(() => {
     if (!saleContract) return;
@@ -67,6 +48,8 @@ const SaleNft: FC = () => {
               mintContract={mintContract}
               saleContract={saleContract}
               signer={signer}
+              tokenIds={tokenIds}
+              setTokenIds={setTokenIds}
             />
           ))}
         </Grid>
