@@ -2,37 +2,34 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract MintNft is ERC721Enumerable, Ownable {
-    string metadataUri;
-    string unrevealedUri;
+contract MintNft is ERC721Enumerable {
+    mapping(uint => string) metadataUri;
+    mapping(uint => uint) voting;
 
-    bool isRevealed;
+   
 
-    constructor(string memory _name, string memory _symbol, string memory _metadataUri, string memory _unrevealedUri) ERC721(_name, _symbol) Ownable(msg.sender) {
-        metadataUri = _metadataUri;
-        unrevealedUri = _unrevealedUri;
+    constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {
     }
 
-    function mintNft() public onlyOwner {
-        require(totalSupply() < 9, "No more mint.");
+    function mintNft(string memory _metadataUri) public {
 
         uint tokenId = totalSupply() + 1;
 
         _mint(msg.sender, tokenId);
+
+        metadataUri[tokenId] = _metadataUri;
     }
 
     function tokenURI(uint _tokenId) public view override returns (string memory) {
-        if(isRevealed) {
-            return string(abi.encodePacked(metadataUri, Strings.toString(_tokenId), ".json")); 
-        } else {
-            return unrevealedUri;
+        return metadataUri[_tokenId];
         }
-    }
 
-    function setIsReveal() public onlyOwner {
-        isRevealed = true;
+        function vote(uint _tokenId) public {
+            voting[_tokenId]++;
+        }
+        function checkvote(uint _tokenId) public view returns (uint) {
+            return voting[_tokenId];
+        }   
     }
-}

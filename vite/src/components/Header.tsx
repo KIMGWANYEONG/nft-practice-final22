@@ -6,6 +6,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { JsonRpcSigner } from "ethers";
 import { Contract } from "ethers";
@@ -67,40 +68,40 @@ const Header: FC<HeaderProps> = ({
         fontWeight="semibold"
         alignItems="center"
       >
-        <Image w={16} src="/images/logo.svg" alt="슬라임 월드" /> 슬라임 월드
+        <Image w={16} src="/images/catssavetheworld.jpeg" alt="고양이자랑터" /> <Flex flexDir={"column"}><Text>고양이</Text><Text>자랑터</Text></Flex>
       </Flex>
       <Flex alignItems="center" gap={[2, 2, 4]}>
         <Button
           variant="link"
-          colorScheme="green"
+          colorScheme="blue"
           onClick={() => navigate("/")}
           size={["xs", "xs", "md"]}
         >
-          홈
+          실시간 순위
         </Button>
         <Button
           variant="link"
-          colorScheme="green"
+          colorScheme="blue"
           onClick={() => navigate("/mint-nft")}
           size={["xs", "xs", "md"]}
         >
-          민팅
+          내 고양이 올리기
         </Button>
         <Button
           variant="link"
-          colorScheme="green"
+          colorScheme="blue"
           onClick={() => navigate("/my-nft")}
           size={["xs", "xs", "md"]}
         >
-          내 NFT
+          투표하기
         </Button>
         <Button
           variant="link"
-          colorScheme="green"
+          colorScheme="blue"
           onClick={() => navigate("/sale-nft")}
           size={["xs", "xs", "md"]}
         >
-          마켓
+          고양이 상점
         </Button>
       </Flex>
       <Flex w={40} justifyContent="end" alignItems="center">

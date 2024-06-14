@@ -129,7 +129,7 @@ const MyNft: FC = () => {
           <Flex alignItems="center" gap={2}>
             <Text>판매 권한 : {isApprovedForAll ? "승인" : "거부"}</Text>
             <Button
-              colorScheme={isApprovedForAll ? "red" : "green"}
+              colorScheme={isApprovedForAll ? "red" : "blue"}
               onClick={onClickSetApprovalForAll}
               isDisabled={isApproveLoading}
               isLoading={isApproveLoading}
