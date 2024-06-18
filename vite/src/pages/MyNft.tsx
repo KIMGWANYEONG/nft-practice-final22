@@ -127,18 +127,20 @@ const MyNft: FC = () => {
       {signer ? (
         <>
           <Flex alignItems="center" gap={2}>
-            <Text>판매 권한 : {isApprovedForAll ? "승인" : "거부"}</Text>
+            <Text>
+              Sales authority : {isApprovedForAll ? "Allow" : "Reject"}
+            </Text>
             <Button
-              colorScheme={isApprovedForAll ? "red" : "blue"}
+              colorScheme={isApprovedForAll ? "red" : "black"}
               onClick={onClickSetApprovalForAll}
               isDisabled={isApproveLoading}
               isLoading={isApproveLoading}
-              loadingText="로딩중"
+              loadingText="Loading..."
             >
-              {isApprovedForAll ? "취소" : "승인"}
+              {isApprovedForAll ? "Cancel" : "Reject"}
             </Button>
           </Flex>
-          {balanceOf !== 0 && <Text>내 보유 NFT 갯수 : {balanceOf}</Text>}
+          {balanceOf !== 0 && <Text>My Nft : {balanceOf}</Text>}
           <Grid
             templateColumns={[
               "repeat(1, 1fr)",
@@ -163,14 +165,14 @@ const MyNft: FC = () => {
               onClick={() => getNftMetadata()}
               isDisabled={isLoading}
               isLoading={isLoading}
-              loadingText="로딩중"
+              loadingText="Loading..."
             >
-              더 보기
+              More
             </Button>
           )}
         </>
       ) : (
-        <Text>🦊 메타마스크 로그인이 필요합니다!</Text>
+        <Text>🦊You should connect MetaMask! </Text>
       )}
     </Flex>
   );

@@ -54,7 +54,7 @@ const SaleNft: FC = () => {
           ))}
         </Grid>
       ) : (
-        <Text>🦊 메타마스크 로그인이 필요합니다!</Text>
+        <Text>🦊You should connect MetaMask!</Text>
       )}
     </Flex>
   );

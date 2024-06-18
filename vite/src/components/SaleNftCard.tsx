@@ -131,7 +131,7 @@ const SaleNftCard: FC<SaleNftCardProps> = ({
                   isLoading={isLoading}
                   loadingText="로딩중"
                 >
-                  구매
+                  Buy
                 </Button>
               </>
             ) : (

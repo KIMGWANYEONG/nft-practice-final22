@@ -1,7 +1,7 @@
 import { Flex, Image } from "@chakra-ui/react";
 import { FC } from "react";
 
-const Home: FC = () => {
+const Rank: FC = () => {
   return (
     <Flex
       position="relative"
@@ -10,15 +10,9 @@ const Home: FC = () => {
       flexDir="column"
       w="100%"
     >
-      <Image
-        maxWidth={850}
-        maxHeight={1000}
-        src="/images/winnercat.jpg"
-        alt="KING"
-      />
       <Flex></Flex>
     </Flex>
   );
 };
 
-export default Home;
+export default Rank;

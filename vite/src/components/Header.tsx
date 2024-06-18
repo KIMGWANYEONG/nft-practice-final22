@@ -6,9 +6,8 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Text,
 } from "@chakra-ui/react";
-import { JsonRpcSigner } from "ethers";
+import { JsonRpcSigner, MaxInt256 } from "ethers";
 import { Contract } from "ethers";
 import { ethers } from "ethers";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
@@ -68,40 +67,50 @@ const Header: FC<HeaderProps> = ({
         fontWeight="semibold"
         alignItems="center"
       >
-        <Image w={16} src="/images/catssavetheworld.jpeg" alt="고양이자랑터" /> <Flex flexDir={"column"}><Text>고양이</Text><Text>자랑터</Text></Flex>
+        <Image w={16} src="/images/cats.gif" alt="반짝반짝" marginRight={10} />
+        <Flex flexDir={"column"}>
+          <Button
+            variant="link"
+            colorScheme="black"
+            onClick={() => navigate("Home")}
+            size={["xs", "xs", "md"]}
+          >
+             CSTW
+          </Button>
+        </Flex>
       </Flex>
       <Flex alignItems="center" gap={[2, 2, 4]}>
         <Button
           variant="link"
-          colorScheme="blue"
-          onClick={() => navigate("/")}
+          colorScheme="black"
+          onClick={() => navigate("Rank")}
           size={["xs", "xs", "md"]}
         >
-          실시간 순위
+           Rank
         </Button>
         <Button
           variant="link"
-          colorScheme="blue"
+          colorScheme="black"
           onClick={() => navigate("/mint-nft")}
           size={["xs", "xs", "md"]}
         >
-          내 고양이 올리기
+          Upload Cat
         </Button>
         <Button
           variant="link"
-          colorScheme="blue"
+          colorScheme="black"
           onClick={() => navigate("/my-nft")}
           size={["xs", "xs", "md"]}
         >
-          투표하기
+          Vote
         </Button>
         <Button
           variant="link"
-          colorScheme="blue"
+          colorScheme="black"
           onClick={() => navigate("/sale-nft")}
           size={["xs", "xs", "md"]}
         >
-          고양이 상점
+          Store
         </Button>
       </Flex>
       <Flex w={40} justifyContent="end" alignItems="center">
@@ -119,7 +128,7 @@ const Header: FC<HeaderProps> = ({
           </Menu>
         ) : (
           <Button onClick={onClickMetamask} size={["xs", "xs", "md"]}>
-            🦊 메마로그인
+            🦊 Login
           </Button>
         )}
       </Flex>

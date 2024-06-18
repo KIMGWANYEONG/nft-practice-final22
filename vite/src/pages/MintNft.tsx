@@ -51,14 +51,14 @@ const MintNft: FC = () => {
         flexDir="column"
         gap={2}
       >
-        {!signer && <Text>🦊 메타마스크 로그인이 필요합니다!</Text>}
+        {!signer && <Text>🦊You should connect MetaMask!</Text>}
         <Button
           onClick={onClickMint}
           isDisabled={!signer}
           isLoading={isLoading}
-          loadingText="로딩중"
+          loadingText="Loading..."
         >
-          민팅하기
+          Mint
         </Button>
       </Flex>
       <MintModal isOpen={isOpen} onClose={onClose} nftMetadata={nftMetadata} />
