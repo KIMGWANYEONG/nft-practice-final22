@@ -1,30 +1,11 @@
-# React + TypeScript + Vite
+# CATS SAVE THE WORLD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+고양이가 세상을 구한다.
+우리는 귀여운 고양이들을 가지고 실험을 하기로 했다.
+가장 투표를 많이 받은 고양이 NFT에게 보상을 주는 실험 프로그램.
 
-Currently, two official plugins are available:
+<발생중 어려움>
+투표 후 랭크산정에 어려움은 없으나 실시간 상금이 쌓이는 기능과 상금을 지급하는 기능을 넣지 못했다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<프로젝트 테스트 방법>
+자신의 고양이사진을 민팅한 후 투표한다. Rank페이지에서 자신의 고양이가 얼마나 투표 받았는 지 확인한다.
