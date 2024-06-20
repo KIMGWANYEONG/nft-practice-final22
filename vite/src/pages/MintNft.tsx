@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { OutletContext } from "../components/Layout";
 import MintModal from "../components/MintModal";
+import { NftMetadata } from "..";
 
 const MintNft: FC = () => {
   const [nftMetadata, setNftMetadata] = useState<NftMetadata>();

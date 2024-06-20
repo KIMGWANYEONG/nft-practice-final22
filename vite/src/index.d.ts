@@ -20,3 +20,9 @@ interface SaleNftMetadata extends NftMetadata {
 export interface NftMetadata {
   score?: number;
 }
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}

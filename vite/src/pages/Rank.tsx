@@ -4,10 +4,10 @@ import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
 import axios from "axios";
 import NftCard from "../components/NftCard";
+import { NftMetadata } from "..";
 
 const Rank: FC = () => {
   const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tokenIds, setTokenIds] = useState<number[]>([]);
 
   const { mintContract, signer, votingContract } =
@@ -15,7 +15,6 @@ const Rank: FC = () => {
 
   const getNftMetadata = async () => {
     try {
-      setIsLoading(true);
       const temp: NftMetadata[] = [];
       const tokenIdTemp: number[] = [];
 
@@ -33,10 +32,8 @@ const Rank: FC = () => {
 
       setNftMetadataArray((prev) => [...prev, ...temp]);
       setTokenIds((prev) => [...prev, ...tokenIdTemp]);
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
-      setIsLoading(false);
     }
   };
 
@@ -48,7 +45,6 @@ const Rank: FC = () => {
   const getRankedNfts = () => {
     return nftMetadataArray
       .map((nft, index) => ({ nft, tokenId: tokenIds[index] }))
-      .sort((a, b) => b.nft.score - a.nft.score) // 예시로 score 속성 기준 정렬
       .slice(0, 3);
   };
 
@@ -71,7 +67,6 @@ const Rank: FC = () => {
                   nftMetadata={rankedNfts[0].nft}
                   tokenId={rankedNfts[0].tokenId}
                   votingContract={votingContract}
-                  style={{ transform: "scale(2)" }} // 1등 이미지 크기 조정
                 />
               </Box>
               <Grid
