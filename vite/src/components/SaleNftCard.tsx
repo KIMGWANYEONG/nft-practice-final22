@@ -129,7 +129,7 @@ const SaleNftCard: FC<SaleNftCardProps> = ({
                     isLoading || nftMetadata.tokenOwner === signer?.address
                   }
                   isLoading={isLoading}
-                  loadingText="로딩중"
+                  loadingText="loading..."
                 >
                   Buy
                 </Button>

@@ -7,7 +7,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { JsonRpcSigner, MaxInt256 } from "ethers";
+import { JsonRpcSigner } from "ethers";
 import { Contract } from "ethers";
 import { ethers } from "ethers";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
@@ -15,9 +15,11 @@ import { useNavigate } from "react-router-dom";
 
 import mintAbi from "../abis/mintAbi.json";
 import saleAbi from "../abis/saleAbi.json";
+import votingAbi from "../abis/votingAbi.json"; // votingAbi 추가
 import {
   mintContractAddress,
   saleContractAddress,
+  votingContractAddress, // votingContractAddress 추가
 } from "../abis/contractAddress";
 
 interface HeaderProps {
@@ -25,6 +27,7 @@ interface HeaderProps {
   setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
   setMintContract: Dispatch<SetStateAction<Contract | null>>;
   setSaleContract: Dispatch<SetStateAction<Contract | null>>;
+  setVotingContract: Dispatch<SetStateAction<Contract | null>>; // setVotingContract 추가
 }
 
 const Header: FC<HeaderProps> = ({
@@ -32,6 +35,7 @@ const Header: FC<HeaderProps> = ({
   setSigner,
   setMintContract,
   setSaleContract,
+  setVotingContract, // setVotingContract 추가
 }) => {
   const navigate = useNavigate();
 
@@ -50,12 +54,15 @@ const Header: FC<HeaderProps> = ({
   useEffect(() => {
     if (!signer) {
       setMintContract(null);
+      setSaleContract(null);
+      setVotingContract(null); // votingContract 초기화
 
       return;
     }
 
     setMintContract(new Contract(mintContractAddress, mintAbi, signer));
     setSaleContract(new Contract(saleContractAddress, saleAbi, signer));
+    setVotingContract(new Contract(votingContractAddress, votingAbi, signer)); // votingContract 설정
   }, [signer]);
 
   return (
@@ -72,7 +79,7 @@ const Header: FC<HeaderProps> = ({
           <Button
             variant="link"
             colorScheme="black"
-            onClick={() => navigate("Home")}
+            onClick={() => navigate("/")}
             size={["xs", "xs", "md"]}
           >
              CSTW
@@ -91,7 +98,7 @@ const Header: FC<HeaderProps> = ({
         <Button
           variant="link"
           colorScheme="black"
-          onClick={() => navigate("/mint-nft")}
+          onClick={() => navigate("/minting")}
           size={["xs", "xs", "md"]}
         >
           Upload Cat
@@ -99,18 +106,10 @@ const Header: FC<HeaderProps> = ({
         <Button
           variant="link"
           colorScheme="black"
-          onClick={() => navigate("/my-nft")}
+          onClick={() => navigate("/vote")}
           size={["xs", "xs", "md"]}
         >
           Vote
-        </Button>
-        <Button
-          variant="link"
-          colorScheme="black"
-          onClick={() => navigate("/sale-nft")}
-          size={["xs", "xs", "md"]}
-        >
-          Store
         </Button>
       </Flex>
       <Flex w={40} justifyContent="end" alignItems="center">

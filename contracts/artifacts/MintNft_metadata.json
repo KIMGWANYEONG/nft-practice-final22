@@ -261,25 +261,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_tokenId",
-						"type": "uint256"
-					}
-				],
-				"name": "checkvote",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
 					}
@@ -562,19 +543,6 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_tokenId",
-						"type": "uint256"
-					}
-				],
-				"name": "vote",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -845,11 +813,11 @@
 			]
 		},
 		"MintNFT.sol": {
-			"keccak256": "0x2a0ce2cfa3b80c08fddf655f938a2eb16fbd22b07a1b5d9e7829f8d7d935a27f",
+			"keccak256": "0x6b77b44ad5e6a8cc25f4368d7ea7f7a1a2cc495002f2638071cd7c6a6d7533e1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7d861c728cdc9e6c82f577de5d07cd4826d30d56cc4e3721f56856b695a964d9",
-				"dweb:/ipfs/Qmb4U5AyVJQdVkKT9z4fSikVtUgcnGbpjFgSPDZL8Uc6eM"
+				"bzz-raw://8d3c8ac9d059b6e879a08b6beb5431414eb19bd2330624c458d27364edf57b24",
+				"dweb:/ipfs/QmYMA8biRmUzrXgAAuNkdPCG9P1nJRAJ7RyLVNVBqxCQRf"
 			]
 		}
 	},

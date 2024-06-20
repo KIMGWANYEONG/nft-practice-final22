@@ -1,135 +1,57 @@
-import {
-  Box,
-  Button,
-  Flex,
-  GridItem,
-  Image,
-  Input,
-  InputGroup,
-  InputRightAddon,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverTrigger,
-  Text,
-} from "@chakra-ui/react";
-import { Contract, formatEther, parseEther } from "ethers";
 import { FC, useEffect, useState } from "react";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
+import { Contract } from "ethers";
+import { NftMetadata } from "../types";
 
 interface NftCardProps {
   nftMetadata: NftMetadata;
   tokenId: number;
-  saleContract: Contract | null;
-  isApprovedForAll: boolean;
+  votingContract: Contract | null;
 }
 
 const NftCard: FC<NftCardProps> = ({
   nftMetadata,
   tokenId,
-  saleContract,
-  isApprovedForAll,
+  votingContract,
 }) => {
-  const [currentPrice, setCurrentPrice] = useState<bigint>();
-  const [salePrice, setSalePrice] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [votes, setVotes] = useState<number>(0);
 
-  const getTokenPrice = async () => {
+  const getTokenVotes = async () => {
     try {
-      const response = await saleContract?.getTokenPrice(tokenId);
-
-      setCurrentPrice(response);
+      if (!votingContract) return;
+      const votes = await votingContract.getTokenVotes(tokenId);
+      setVotes(Number(votes));
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching token votes:", error);
     }
   };
 
-  const onClickSetForSaleNft = async () => {
+  const vote = async () => {
     try {
-      if (!salePrice || isNaN(Number(salePrice))) return;
-
-      setIsLoading(true);
-
-      const response = await saleContract?.setForSaleNft(
-        tokenId,
-        parseEther(salePrice)
-      );
-
-      await response.wait();
-
-      setCurrentPrice(parseEther(salePrice));
-
-      setIsLoading(false);
+      if (!votingContract) return;
+      const tx = await votingContract.vote(tokenId);
+      await tx.wait(); // 트랜잭션이 완료될 때까지 대기
+      getTokenVotes(); // 투표 수를 업데이트
     } catch (error) {
-      console.error(error);
-
-      setIsLoading(false);
+      console.error("Error voting:", error);
     }
   };
 
   useEffect(() => {
-    if (!saleContract || !tokenId) return;
-
-    getTokenPrice();
-  }, [saleContract, tokenId]);
+    getTokenVotes();
+  }, [votingContract, tokenId]);
 
   return (
-    <GridItem display="flex" flexDir="column">
-      <Image
-        alignSelf="center"
-        src={nftMetadata.image}
-        alt={nftMetadata.name}
-      />
-      <Popover>
-        <PopoverTrigger>
-          <Button mt={4} fontSize={24} fontWeight="semibold" variant="link">
-            {nftMetadata.name}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverBody>{nftMetadata.description}</PopoverBody>
-        </PopoverContent>
-      </Popover>
-      <Flex flexWrap="wrap" mt={4} gap={2}>
-        {nftMetadata.attributes?.map((w, j) => (
-          <Box key={j} border="2px solid olive" p={1}>
-            <Text borderBottom="2px solid olive">{w.trait_type}</Text>
-            <Text>{w.value}</Text>
-          </Box>
-        ))}
-      </Flex>
-      <Flex mt={4}>
-        {currentPrice ? (
-          <Text>{formatEther(currentPrice)} ETH</Text>
-        ) : isApprovedForAll ? (
-          <>
-            <InputGroup>
-              <Input
-                value={salePrice}
-                onChange={(e) => setSalePrice(e.target.value)}
-                textAlign="right"
-                isDisabled={isLoading}
-              />
-              <InputRightAddon>ETH</InputRightAddon>
-            </InputGroup>
-            <Button
-              ml={2}
-              onClick={onClickSetForSaleNft}
-              isDisabled={isLoading}
-              isLoading={isLoading}
-              loadingText="로딩중"
-            >
-              등록
-            </Button>
-          </>
-        ) : (
-          ""
-        )}
-      </Flex>
-    </GridItem>
+    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="6">
+      <Image src={nftMetadata.image} alt={nftMetadata.name} boxSize="200px" />
+      <Text mt="2" fontWeight="bold" as="h4" lineHeight="tight">
+        {nftMetadata.name}
+      </Text>
+      <Text mt="2">{votes} Votes</Text>
+      <Button mt="2" onClick={vote}>
+        Vote
+      </Button>
+    </Box>
   );
 };
 
