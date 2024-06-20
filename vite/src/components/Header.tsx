@@ -72,9 +72,9 @@ const Header: FC<HeaderProps> = ({
     try {
       if (!window.ethereum) return;
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      setSigner(signer);
+      const provider = new ethers.BrowserProvider(window.ethereum);
+
+      setSigner(await provider.getSigner());
     } catch (error) {
       console.error(error);
     }
@@ -258,11 +258,11 @@ const Header: FC<HeaderProps> = ({
           <ModalHeader>Surprise!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Image w={16} src="/images/surprise.jpeg" alt="Surprise" />
+            <Image w={200} src="/images/surprise.jpeg" alt="Surprise" />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onFourthModalClose}>
-              Close
+              Click! more prize is here!!!!
             </Button>
           </ModalFooter>
         </ModalContent>
