@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Box, Button, Image, Text } from "@chakra-ui/react";
 import { Contract } from "ethers";
-import { NftMetadata } from "../types";
+import { NftMetadata } from "..";
 
 interface NftCardProps {
   nftMetadata: NftMetadata;

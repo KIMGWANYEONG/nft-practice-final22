@@ -5,7 +5,6 @@ import Rank from "./pages/Rank";
 import Layout from "./components/Layout";
 import MintNft from "./pages/MintNft";
 import Vote from "./pages/Vote";
-import SaleNft from "./pages/SaleNft";
 import Minting from "./pages/Minting";
 
 const App: FC = () => {
@@ -18,7 +17,6 @@ const App: FC = () => {
           <Route path="/mint-nft" element={<MintNft />} />
           <Route path="/minting" element={<Minting />} />
           <Route path="/vote" element={<Vote />} />
-          <Route path="/sale-nft" element={<SaleNft />} />
         </Route>
       </Routes>
     </BrowserRouter>
