@@ -4,11 +4,10 @@ import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
 import axios from "axios";
 import NftCard from "../components/NftCard";
+import { NftMetadata } from "..";
 
 const Vote: FC = () => {
   const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
-  const [balanceOf, setBalanceOf] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tokenIds, setTokenIds] = useState<number[]>([]);
 
   const { mintContract, signer, votingContract } =
@@ -16,8 +15,6 @@ const Vote: FC = () => {
 
   const getBalanceOf = async () => {
     try {
-      const response = await mintContract?.balanceOf(signer?.address);
-      setBalanceOf(Number(response));
     } catch (error) {
       console.error(error);
     }
@@ -25,7 +22,6 @@ const Vote: FC = () => {
 
   const getNftMetadata = async () => {
     try {
-      setIsLoading(true);
       const temp: NftMetadata[] = [];
       const tokenIdTemp: number[] = [];
 
@@ -43,10 +39,8 @@ const Vote: FC = () => {
 
       setNftMetadataArray((prev) => [...prev, ...temp]);
       setTokenIds((prev) => [...prev, ...tokenIdTemp]);
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
-      setIsLoading(false);
     }
   };
 
