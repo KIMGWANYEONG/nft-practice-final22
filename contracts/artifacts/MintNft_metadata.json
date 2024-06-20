@@ -813,11 +813,11 @@
 			]
 		},
 		"MintNFT.sol": {
-			"keccak256": "0x6b77b44ad5e6a8cc25f4368d7ea7f7a1a2cc495002f2638071cd7c6a6d7533e1",
+			"keccak256": "0x41882f13848cfab9ebdb36dc0b1ac57840394ca2dea5cac177bb7754f3aa843f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8d3c8ac9d059b6e879a08b6beb5431414eb19bd2330624c458d27364edf57b24",
-				"dweb:/ipfs/QmYMA8biRmUzrXgAAuNkdPCG9P1nJRAJ7RyLVNVBqxCQRf"
+				"bzz-raw://c7353c8f6632f431a9386234ece5f114933a22c8f627be99d31c52b0b6336877",
+				"dweb:/ipfs/QmUFYmp3oU3oNtpuxUkHKU74rVWAMaUTMat9xc7mojnrTC"
 			]
 		}
 	},
