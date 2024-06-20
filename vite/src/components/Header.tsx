@@ -6,11 +6,19 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { JsonRpcSigner } from "ethers";
 import { Contract } from "ethers";
 import { ethers } from "ethers";
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import mintAbi from "../abis/mintAbi.json";
@@ -38,14 +46,35 @@ const Header: FC<HeaderProps> = ({
   setVotingContract, // setVotingContract 추가
 }) => {
   const navigate = useNavigate();
+  const [clickCount, setClickCount] = useState(0);
+  const {
+    isOpen: isFirstModalOpen,
+    onOpen: onFirstModalOpen,
+    onClose: onFirstModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isSecondModalOpen,
+    onOpen: onSecondModalOpen,
+    onClose: onSecondModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isThirdModalOpen,
+    onOpen: onThirdModalOpen,
+    onClose: onThirdModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isFourthModalOpen,
+    onOpen: onFourthModalOpen,
+    onClose: onFourthModalClose,
+  } = useDisclosure();
 
   const onClickMetamask = async () => {
     try {
       if (!window.ethereum) return;
 
-      const provider = new ethers.BrowserProvider(window.ethereum);
-
-      setSigner(await provider.getSigner());
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      setSigner(signer);
     } catch (error) {
       console.error(error);
     }
@@ -65,6 +94,24 @@ const Header: FC<HeaderProps> = ({
     setVotingContract(new Contract(votingContractAddress, votingAbi, signer)); // votingContract 설정
   }, [signer]);
 
+  useEffect(() => {
+    if (clickCount === 3) {
+      onFirstModalOpen();
+    } else if (clickCount === 10) {
+      onSecondModalOpen();
+      setClickCount(0); // 클릭 수 초기화
+    }
+  }, [clickCount, onFirstModalOpen, onSecondModalOpen]);
+
+  const handleImageClick = () => {
+    setClickCount((prevCount) => prevCount + 1);
+  };
+
+  const handleThirdModalOpen = () => {
+    onThirdModalOpen();
+    setTimeout(onFourthModalOpen, 30000); // 30초 후에 네 번째 모달 열기
+  };
+
   return (
     <Flex h={24} justifyContent="space-between">
       <Flex
@@ -74,7 +121,13 @@ const Header: FC<HeaderProps> = ({
         fontWeight="semibold"
         alignItems="center"
       >
-        <Image w={16} src="/images/cats.gif" alt="반짝반짝" marginRight={10} />
+        <Image
+          w={16}
+          src="/images/cats.gif"
+          alt="반짝반짝"
+          marginRight={10}
+          onClick={handleImageClick}
+        />
         <Flex flexDir={"column"}>
           <Button
             variant="link"
@@ -131,6 +184,89 @@ const Header: FC<HeaderProps> = ({
           </Button>
         )}
       </Flex>
+
+      {/* 첫 번째 모달 */}
+      <Modal
+        isOpen={isFirstModalOpen}
+        onClose={onFirstModalClose}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Notification</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Why do you do?</ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onFirstModalClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* 두 번째 모달 */}
+      <Modal
+        isOpen={isSecondModalOpen}
+        onClose={onSecondModalClose}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>!!!!!!!!!!!!!!!!??</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Congratuation Prize is 100USDT</ModalBody>
+          <ModalFooter>
+            <Button
+              colorScheme="green"
+              mr={6}
+              fontSize={20}
+              onClick={handleThirdModalOpen}
+            >
+              Don't click please wait
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* 세 번째 모달 */}
+      <Modal
+        isOpen={isThirdModalOpen}
+        onClose={onThirdModalClose}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>You have warrior's heart</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>100USDT is dissapear</ModalBody>
+          <ModalFooter>
+            <Button colorScheme="red" mr={3} onClick={onThirdModalClose}>
+              One more chance?
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* 네 번째 모달 */}
+      <Modal
+        isOpen={isFourthModalOpen}
+        onClose={onFourthModalClose}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Surprise!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Image w={16} src="/images/surprise.jpeg" alt="Surprise" />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onFourthModalClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };
